@@ -1,0 +1,56 @@
+Title         : Actor-Critic算法：A3C与A2C
+Author        : ChuminLi
+Email         : lichm5@mail2.sysu.edu.cn
+Logo          : True
+
+[TITLE]
+
+Actor-critic算法是目前主流的深度强化学习算法，深入了解actor-critic算法是了解目前研究前沿的关键。
+所谓的“actor-critic”可以理解为一种框架或一类算法，具有参数化的*actor*与*critic*函数。一个*actor*
+是以$\theta$为参数的策略函数$\pi_{\theta}(a|s)$，会在环境中采取行动。一个*critic*是一个值函数，
+用于协助*actor*在环境中学习。通常，*critic*可以是状态价值函数、状态动作价值函数或者优势函数，分别
+以$V(s), Q(s,a), A(s,a)$表示
+
+我认为，最基础的actor-critic算法（不考虑查表的情况）是一个带有自学习基准函数的的“Vanilla”策略梯度
+算法。以下是“Vanilla”策略梯度算法的伪代码
+```
+“Vanilla”策略梯度算法
+初始化策略函数的参数$\theta$，基准$b$
+循环 i=1, 2, ...:
+  使用策略函数$\pi_{\theta}$挑选动作执行并得到一系列的轨迹
+  对于每条轨迹的每个timestep，计算
+    $R_t=\sum_{t'=t}^{T-1} \gamma^{t'-t} r_t'$，
+    以及优势函数的估计$A^{head}_{t}=R_t - b(s_t)$
+  调整基准$b(s_t)$，使得$||b(s_t - R_t)||^2$最小
+  使用策略梯度估计$g^{head}$更新策略参数，其中
+    $g^{head}=$
+```
+在[我的一篇旧文章](https://danieltakeshi.github.io/2017/03/28/going-deeper-into-reinforcement-learning-fundamentals-of-policy-gradients/)
+中，可以回顾策略梯度算法，在此我不再赘述相关细节。在那篇文章中我使用的是期望值，但在实际应用上，
+你可以使用跟上面的代码一样的估计。为了理解这一点，其实无偏的*critic*是可以只用$R_t$估计的，
+而不需要使用基准$b(s_t)$，但这样做通常在实践上表现非常差。因此，人们通常会加入基准$b(s_t)$
+
+A3C表示的是*Asynchronous Advantage Actor Critic*。
+
+* *Asynchronous*：A3C算法会平行地在多个环境中执行动作，以降低训练数据的相关性，并且以Hogwild!方式更新
+梯度，不需要经验回放，当然你也可以加入经验回放（这种做法叫[ACER算法]）
+
+* *Advantage*：A3C算法使用优势函数作为*critic*。特别地，DeepMind使用$n$步返回值
+
+* *Actor*：A3C算法是一个actor-critic框架算法，在*critic*的帮助下更新其策略
+
+关于A3C算法的结构，你可以在相关论文或者博客文章中找到。以下是我画的框架图
+
+一些注意点：
+
+* 我跟DeepMind一样使用了16个并行环境。现在的CPU通常都有4或者6核，使用超线程技术的话可以把线程数加倍。
+当然，你也可以使用Amazon Web Services，而你不需要用到GPU
+
+* 我采取跟DeepMind一样的共享参数方式，但一般而言，我会单独更新$\theta_{\pi}$与$\theta_{v}$，并使用
+不同的学习速率
+
+* 策略函数会有一个内嵌于$d\theta$的交叉熵的额外奖励，以鼓励探索行为
+
+* 更新是基于Hogwild!风格的，尽管上面的图没有画出，
+
+
