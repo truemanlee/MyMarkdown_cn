@@ -8,4 +8,9 @@ Logo          : True
 
 Deep Voice 1 & 2都遵循了传统的TTS架构，分为语素-音素转换模型、发音时间与频率预测模型、语音合成
 模型。相反地，Deep Voice 3使用了一个基于注意力机制的seq2seq模型，是更通用的架构。Tacotron与
-Char2Wav也是seq2seq的神经TTS模型。
+Char2Wav也是seq2seq的神经TTS模型。跟Taccotron和Char2Wav不同，Deep Voice 3不使用RNN进而加速
+训练过程（很奇怪，因为Deep Voice 1的语音合成网络使用了QRNN，训练速度与CNN是差不多的，为何这么说）。
+Deep Voic 3建立了一个灵活的基于注意力的产品级TTS模型，而且在准确率中不做妥协，以避免常见的注意力
+误差。最后，WaveNet以及SampleRNN是神经声码器模型，但市面上已经高质量的手工特征声码器可以合成高质量
+的语音，例如STRAIGHT，Vocaine以及WORLD。Deep Voice 3的设计中没有声码器，但其具有与其他的波形合成
+算法结合的可能性（有可能性你怎么不做。。）。
