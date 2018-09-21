@@ -13,4 +13,5 @@ Char2Wav也是seq2seq的神经TTS模型。跟Taccotron和Char2Wav不同，Deep V
 Deep Voic 3建立了一个灵活的基于注意力的产品级TTS模型，而且在准确率中不做妥协，以避免常见的注意力
 误差。最后，WaveNet以及SampleRNN是神经声码器模型，但市面上已经高质量的手工特征声码器可以合成高质量
 的语音，例如STRAIGHT，Vocaine以及WORLD。Deep Voice 3的设计中没有声码器，但其具有与其他的波形合成
-算法结合的可能性（有可能性你怎么不做。。）。
+算法结合的可能性（有可能性你怎么不做。。）。Deep Voice 3是目前第一个单模型训练多讲者的TTS模型
+
