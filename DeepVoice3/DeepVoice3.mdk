@@ -1,18 +1,11 @@
-Title         : Welcome
-Author        : You
+Title         : DeepVoice3笔记
+Author        : Chumin Li
 Logo          : True
 
 [TITLE]
 
-# Madoko 
+# 相关工作
 
-Madoko is a fast markdown processor for writing professional articles
-with a focus on simplicity and plain text readability.
-
-* Read the [reference manual].
-* Explore the upper-right toolbox menu to discover how Markdown works. 
-* `Alt-Q` reformats the current paragraph.
-
-Enjoy!
-
-[reference manual]: http://research.microsoft.com/en-us/um/people/daan/madoko/doc/reference.html  "Madoko reference manual"
+Deep Voice 1 & 2都遵循了传统的TTS架构，分为语素-音素转换模型、发音时间与频率预测模型、语音合成
+模型。相反地，Deep Voice 3使用了一个基于注意力机制的seq2seq模型，是更通用的架构。Tacotron与
+Char2Wav也是seq2seq的神经TTS模型。
