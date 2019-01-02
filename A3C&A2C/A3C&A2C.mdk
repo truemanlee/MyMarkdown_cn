@@ -1,7 +1,7 @@
 Title         : Actor-Critic算法：A3C与A2C
 Author        : Chumin Li
 Logo          : True
-
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 [TITLE] 
 
 本文授权翻译，如有错漏，烦请指出。[原文地址](https://danieltakeshi.github.io/2018/06/28/a2c-a3c/)
